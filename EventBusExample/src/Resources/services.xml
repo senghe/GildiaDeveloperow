@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="false">
+            <bind key="$commandBus" type="service" id="app.command_bus"  />
+            <bind key="$eventBus" type="service" id="app.event_bus" />
+        </defaults>
+
+        <service id="App\Controller\BuyProductController" public="true" />
+
+        <service id="App\CommandHandler\BuyProductCommandHandler">
+            <tag name="messenger.message_handler" bus="app.command_bus"/>
+        </service>
+
+        <service id="App\EventSubscriber\DisableOutOfStockProductEventSubscriber">
+            <tag name="messenger.message_handler" bus="app.event_bus" />
+        </service>
+
+        <service id="App\Repository\ProductRepository" />
+    </services>
+</container>
