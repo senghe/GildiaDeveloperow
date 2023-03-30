@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\BlogPost" table="blog_post" repository-class="App\Repository\BlogPostRepository">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="name" />
+
+        <many-to-one field="blog" target-entity="App\Entity\Blog" />
+
+        <one-to-one field="author" target-entity="App\Entity\Author" />
+
+        <one-to-many field="comments" target-entity="App\Entity\Comment" mapped-by="blogPost">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
+
+        <many-to-many field="tags" target-entity="App\Entity\Tag" inversed-by="posts">
+            <join-table name="blog_post_tag">
+                <join-columns>
+                    <join-column name="blog_post_id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="tag_id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </entity>
+
+</doctrine-mapping>

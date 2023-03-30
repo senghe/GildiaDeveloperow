@@ -1,0 +1,11 @@
+app_fixtures:
+    path: /fixtures
+    methods: [GET]
+    defaults:
+        _controller: App\Controller\FixturesController
+
+app_dashboard:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: App\Controller\PostsController
