@@ -24,6 +24,12 @@ final class PostsController
         /** @var BlogPostRepository $repository */
         $repository = $this->entityManager->getRepository(BlogPost::class);
 
+//        $allPosts = $repository->findWithAllWithLeftJoins();
+//        var_dump(count($allPosts));
+
+//        $allPosts = $repository->findWithAllWithInnerJoins();
+//        var_dump(count($allPosts));
+
 //        $allPosts = $repository->findWithEagerBlog();
 //        /** @var BlogPost $post */
 //        foreach ($allPosts as $post) {

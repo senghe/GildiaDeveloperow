@@ -12,7 +12,7 @@ use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-final class FixturesController
+final class FixturesForZeroAssociationsController
 {
     public function __construct(
         private EntityManagerInterface $entityManager
@@ -40,46 +40,12 @@ final class FixturesController
 
         $this->entityManager->flush();
 
-        $blog = new Blog();
-        $blog->setName("The blog");
-        $this->entityManager->persist($blog);
-
-        $tagsCount = 10;
-        $tags = [];
-        for ($i=0; $i<$tagsCount; $i++) {
-            $tag = new Tag();
-            $tag->setName(sprintf("Tag no %d", $i+1));
-            $this->entityManager->persist($tag);
-
-            $tags[] = $tag;
-        }
-
         $postsCount = 50;
         for ($i=0; $i<$postsCount; $i++) {
-            $author = new Author();
-            $author->setName(sprintf("Author no. %d", $i+1));
 
             $post = new BlogPost();
             $post->setName(sprintf('Blog post no. %d', $i+1));
-            $post->setBlog($blog);
-            $post->setAuthor($author);
 
-            foreach ($tags as $tag) {
-                $post->addTag($tag);
-                $tag->addPost($post);
-            }
-
-            $commentsCount = 100;
-            for($j=0; $j<$commentsCount; $j++) {
-                $comment = new Comment();
-                $comment->setContent(sprintf('Content no. %d for post no. %d', $j, $i));
-                $comment->setBlogPost($post);
-                $post->addComment($comment);
-
-                $this->entityManager->persist($comment);
-            }
-
-            $this->entityManager->persist($author);
             $this->entityManager->persist($post);
         }
 

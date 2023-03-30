@@ -1,8 +1,20 @@
-app_fixtures:
-    path: /fixtures
+app_fixtures_all_associations:
+    path: /fixtures/all
     methods: [GET]
     defaults:
         _controller: App\Controller\FixturesController
+
+app_fixtures_random+associations:
+    path: /fixtures/random
+    methods: [GET]
+    defaults:
+        _controller: App\Controller\FixturesWithRandomAssociationsController
+
+app_fixtures_zero_associations:
+    path: /fixtures/zero
+    methods: [GET]
+    defaults:
+        _controller: App\Controller\FixturesForZeroAssociationsController
 
 app_dashboard:
     path: /

@@ -12,7 +12,7 @@ use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-final class FixturesController
+final class FixturesWithRandomAssociationsController
 {
     public function __construct(
         private EntityManagerInterface $entityManager
@@ -44,7 +44,7 @@ final class FixturesController
         $blog->setName("The blog");
         $this->entityManager->persist($blog);
 
-        $tagsCount = 10;
+        $tagsCount = rand(5, 10);
         $tags = [];
         for ($i=0; $i<$tagsCount; $i++) {
             $tag = new Tag();
@@ -54,7 +54,7 @@ final class FixturesController
             $tags[] = $tag;
         }
 
-        $postsCount = 50;
+        $postsCount = rand(20, 50);
         for ($i=0; $i<$postsCount; $i++) {
             $author = new Author();
             $author->setName(sprintf("Author no. %d", $i+1));
@@ -69,7 +69,7 @@ final class FixturesController
                 $tag->addPost($post);
             }
 
-            $commentsCount = 100;
+            $commentsCount = rand(50, 100);
             for($j=0; $j<$commentsCount; $j++) {
                 $comment = new Comment();
                 $comment->setContent(sprintf('Content no. %d for post no. %d', $j, $i));

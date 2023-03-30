@@ -52,4 +52,24 @@ final class BlogPostRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findWithAllWithLeftJoins(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->leftJoin('o.blog', 'blog')
+            ->leftJoin('o.comments', 'comments')
+            ->leftJoin('o.tags', 'tags')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findWithAllWithInnerJoins(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->innerJoin('o.blog', 'blog')
+            ->innerJoin('o.comments', 'comments')
+            ->innerJoin('o.tags', 'tags')
+            ->getQuery()
+            ->getResult();
+    }
 }

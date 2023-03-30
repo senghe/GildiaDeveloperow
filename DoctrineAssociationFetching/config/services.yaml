@@ -27,6 +27,14 @@ services:
         tags:
             - "controller.service_arguments"
 
+    App\Controller\FixturesForZeroAssociationsController:
+        tags:
+            - "controller.service_arguments"
+
+    App\Controller\FixturesWithRandomAssociationsController:
+        tags:
+            - "controller.service_arguments"
+
     App\Controller\PostsController:
         tags:
             - "controller.service_arguments"
